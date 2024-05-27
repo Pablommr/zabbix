@@ -9,5 +9,9 @@ spec:
     targetPort: zabbix-port
     protocol: TCP
     name: zabbix-proxy
+  - port: 10050
+    targetPort: zabbix-agent
+    protocol: TCP
+    name: zabbix-agent
   selector:
     app: zabbix-proxy
