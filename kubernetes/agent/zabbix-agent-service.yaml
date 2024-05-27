@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zabbix-agent-service
+  namespace: monitoring
+spec:
+  ports:
+  - port: 10050
+    targetPort: zabbix-port
+    protocol: TCP
+    name: zabbix-agent
+  selector:
+    app: zabbix-agent

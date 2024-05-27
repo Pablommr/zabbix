@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-agent
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zabbix-agent
+  template:
+    metadata:
+      labels:
+        app: zabbix-agent
+    spec:
+      nodeSelector:
+        karpenter.sh/provisioner-name: general
+      containers:
+      - name: zabbix-agent
+        image: zabbix/zabbix-agent:6.4.14-centos
+        ports:
+        - containerPort: 10050
+          name: zabbix-port
+        resources:
+          limits:
+            cpu: 130m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        envFrom:
+        - configMapRef:
+            name: zabbix-agent-confmap

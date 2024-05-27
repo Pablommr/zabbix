@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-st
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: mysql-st
+  serviceName: "mysql-st"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql-st
+    spec:
+      nodeSelector:
+        karpenter.sh/provisioner-name: general
+      containers:
+      - name: mysql-st
+        image: mysql:8.0.37
+        ports:
+        - containerPort: 3306
+          name: mysql-port
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: superZabbix
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysql-data
+      volumes:
+      - name: mysql-data
+        persistentVolumeClaim:
+          claimName: mysql-pvc 

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zabbix-proxy
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: zabbix-proxy
+  serviceName: "zabbix-proxy"
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        karpenter.sh/do-not-disrupt: "true"
+      labels:
+        app: zabbix-proxy
+    spec:
+      nodeSelector:
+        karpenter.sh/provisioner-name: general
+      containers:
+      - name: zabbix-proxy
+        image: zabbix/zabbix-proxy-mysql:6.4.14-centos
+        ports:
+        - containerPort: 10051
+          name: zabbix-port
+        envFrom:
+        - configMapRef:
+            name: zabbix-proxy-confmap
+        - secretRef:
+            name: zabbix-secret

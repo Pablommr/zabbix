@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-web
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zabbix-web
+  template:
+    metadata:
+      labels:
+        app: zabbix-web
+    spec:
+      nodeSelector:
+        karpenter.sh/provisioner-name: general
+      containers:
+      - name: zabbix-web
+        image: zabbix/zabbix-web-nginx-mysql:6.4.14-centos
+        ports:
+        - containerPort: 8080
+          name: zabbix-port
+        resources:
+          limits:
+            cpu: 130m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        envFrom:
+        - configMapRef:
+            name: zabbix-server-confmap
+        - secretRef:
+            name: zabbix-secret

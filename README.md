@@ -1,2 +1,2 @@
-# zabbix
-Some Zabbix architecture
+# Zabbix
+Zabbix in Docker and Kubernetes

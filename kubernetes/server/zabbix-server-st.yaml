@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zabbix-server
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: zabbix-server
+  serviceName: "zabbix-server"
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        karpenter.sh/do-not-disrupt: "true"
+      labels:
+        app: zabbix-server
+    spec:
+      nodeSelector:
+        karpenter.sh/provisioner-name: general
+      containers:
+      - name: zabbix-server
+        image: zabbix/zabbix-server-mysql:6.4.14-centos
+        ports:
+        - containerPort: 10051
+          name: zabbix-port
+        envFrom:
+        - configMapRef:
+            name: zabbix-server-confmap
+        - secretRef:
+            name: zabbix-secret

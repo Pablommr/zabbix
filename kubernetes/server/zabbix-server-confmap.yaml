@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zabbix-server-confmap
+  namespace: monitoring
+data:
+  DB_SERVER_HOST: "mysql-service"
+  MYSQL_USER: "zabbix"
+  ZBX_SERVER_HOST: "zabbix-server-service"
+  ZBX_DEBUGLEVEL: "2"
