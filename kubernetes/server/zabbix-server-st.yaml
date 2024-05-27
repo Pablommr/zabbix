@@ -29,3 +29,22 @@ spec:
             name: zabbix-server-confmap
         - secretRef:
             name: zabbix-secret
+      - name: zabbix-agent
+        image: zabbix/zabbix-agent:6.4.14-centos
+        ports:
+        - containerPort: 10050
+          name: zabbix-agent
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 128Mi
+        env:
+          - name: ZBX_HOSTNAME
+            value: Zabbix server
+          - name: ZBX_SERVER_HOST
+            value: zabbix-server-service
+          - name: ZBX_PASSIVESERVERS
+            value: 127.0.0.1
