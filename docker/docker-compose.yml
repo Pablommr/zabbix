@@ -13,7 +13,7 @@ services:
     ports:
        - "3306:3306"
   zabbix-server:
-    image: zabbix/zabbix-server-mysql:6.4.14-centos
+    image: zabbix/zabbix-server-mysql:7.0.0-centos
     container_name: zabbix-server
     hostname: zabbix-server
     restart: always
@@ -26,7 +26,7 @@ services:
       MYSQL_USER: "zabbix"
       MYSQL_PASSWORD: "123456"
   zabbix-web:
-    image: zabbix/zabbix-web-nginx-mysql:6.4.14-centos
+    image: zabbix/zabbix-web-nginx-mysql:7.0.0-centos
     container_name: zabbix-web
     hostname: zabbix-web
     restart: always
@@ -42,7 +42,7 @@ services:
     ports:
       - "8080:8080"
   zabbix-agent:
-    image: zabbix/zabbix-agent:6.4.14-centos
+    image: zabbix/zabbix-agent:7.0.0-centos
     container_name: zabbix-agent
     hostname: zabbix-agent
     restart: always

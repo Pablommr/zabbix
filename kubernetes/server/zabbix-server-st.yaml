@@ -20,7 +20,7 @@ spec:
         karpenter.sh/provisioner-name: general
       containers:
       - name: zabbix-server
-        image: zabbix/zabbix-server-mysql:6.4.14-centos
+        image: zabbix/zabbix-server-mysql:7.0.0-centos
         ports:
         - containerPort: 10051
           name: zabbix-port
@@ -30,7 +30,7 @@ spec:
         - secretRef:
             name: zabbix-secret
       - name: zabbix-agent
-        image: zabbix/zabbix-agent:6.4.14-centos
+        image: zabbix/zabbix-agent:7.0.0-centos
         ports:
         - containerPort: 10050
           name: zabbix-agent

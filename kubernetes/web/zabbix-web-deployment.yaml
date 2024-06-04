@@ -17,7 +17,7 @@ spec:
         karpenter.sh/provisioner-name: general
       containers:
       - name: zabbix-web
-        image: zabbix/zabbix-web-nginx-mysql:6.4.14-centos
+        image: zabbix/zabbix-web-nginx-mysql:7.0.0-centos
         ports:
         - containerPort: 8080
           name: zabbix-port

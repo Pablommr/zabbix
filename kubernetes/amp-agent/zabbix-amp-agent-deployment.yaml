@@ -27,7 +27,7 @@ spec:
             cpu: 50m
             memory: 128Mi
       - name: zabbix-amp-agent
-        image: zabbix/zabbix-agent:6.4.14-centos
+        image: zabbix/zabbix-agent:7.0.0-centos
         ports:
         - containerPort: 10050
           name: zabbix-port
